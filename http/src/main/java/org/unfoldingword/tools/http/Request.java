@@ -42,7 +42,7 @@ abstract class Request {
      * Token authentication.
      * @param token
      */
-    public void setAuthorization(String token) {
+    public void setAuthentication(String token) {
         this.token = token;
     }
 
@@ -52,7 +52,7 @@ abstract class Request {
      * @param username
      * @param password
      */
-    public void setAuthorization(String username, String password) {
+    public void setAuthentication(String username, String password) {
         this.username = username;
         this.password = password;
     }
