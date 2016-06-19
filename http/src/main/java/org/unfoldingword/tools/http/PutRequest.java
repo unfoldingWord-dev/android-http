@@ -11,11 +11,6 @@ import java.net.URL;
 public class PutRequest extends Request {
     private final String data;
 
-    /**
-     * Prepares the put request
-     * @param url
-     * @param data
-     */
     private PutRequest(URL url, String data) {
         super(url, "PUT");
         this.data = data;
@@ -23,9 +18,9 @@ public class PutRequest extends Request {
 
     /**
      * Creates a new put request
-     * @param uri
-     * @param data
-     * @return
+     * @param uri the url receiving the put request
+     * @param data the put data
+     * @return a new put request
      * @throws MalformedURLException
      */
     public static PutRequest newInstance(String uri, String data) throws MalformedURLException {

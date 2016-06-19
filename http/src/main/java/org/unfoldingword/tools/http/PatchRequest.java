@@ -11,11 +11,6 @@ import java.net.URL;
 public class PatchRequest extends Request {
     private final String data;
 
-    /**
-     * Prepares the patch request
-     * @param url
-     * @param data
-     */
     private PatchRequest(URL url, String data) {
         super(url, "PATCH");
         this.data = data;
@@ -23,9 +18,9 @@ public class PatchRequest extends Request {
 
     /**
      * Creates a new patch request
-     * @param uri
-     * @param data
-     * @return
+     * @param uri the url receiving the patch request
+     * @param data the patch data
+     * @return a new patch request
      * @throws MalformedURLException
      */
     public static PatchRequest newInstance(String uri, String data) throws MalformedURLException {

@@ -10,18 +10,14 @@ import java.net.URL;
  */
 public class GetRequest extends Request {
 
-    /**
-     * Prepares the get request
-     * @param url
-     */
     private GetRequest(URL url) {
         super(url, "GET");
     }
 
     /**
      * Creates a new get request
-     * @param uri
-     * @return
+     * @param uri the url receiving the get request
+     * @return a new get request
      * @throws MalformedURLException
      */
     public static GetRequest newInstance(String uri) throws MalformedURLException {

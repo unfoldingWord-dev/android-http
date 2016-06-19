@@ -10,18 +10,14 @@ import java.net.URL;
  */
 public class DeleteRequest extends Request {
 
-    /**
-     * Prepares the delete request
-     * @param url
-     */
     private DeleteRequest(URL url) {
         super(url, "DELETE");
     }
 
     /**
      * Creates a new delete request
-     * @param uri
-     * @return
+     * @param uri the url that will receive the delete request
+     * @return a new delete request
      * @throws MalformedURLException
      */
     public static DeleteRequest newInstance(String uri) throws MalformedURLException {

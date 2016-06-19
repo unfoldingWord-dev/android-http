@@ -11,11 +11,6 @@ import java.net.URL;
 public class PostRequest extends Request {
     private final String data;
 
-    /**
-     * Prepares the post request
-     * @param url
-     * @param data
-     */
     private PostRequest(URL url, String data) {
         super(url, "POST");
         this.data = data;
@@ -23,9 +18,9 @@ public class PostRequest extends Request {
 
     /**
      * Creates a new post request
-     * @param uri
-     * @param data
-     * @return
+     * @param uri the url receiving the post request
+     * @param data the post data
+     * @return a new post request
      * @throws MalformedURLException
      */
     public static PostRequest newInstance(String uri, String data) throws MalformedURLException {

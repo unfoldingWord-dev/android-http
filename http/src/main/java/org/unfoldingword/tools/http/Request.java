@@ -40,7 +40,7 @@ abstract class Request {
      * Sets the token used for authenticating the post request
      * Tokens take precedence over credentials
      * Token authentication.
-     * @param token
+     * @param token the authentication token
      */
     public void setAuthentication(String token) {
         this.token = token;
@@ -49,8 +49,8 @@ abstract class Request {
     /**
      * Sets the credentials used for authenticating the report
      * Basic authentication.
-     * @param username
-     * @param password
+     * @param username the username to be authenticated as
+     * @param password the password to authenticate with
      */
     public void setAuthentication(String username, String password) {
         this.username = username;
@@ -59,7 +59,7 @@ abstract class Request {
 
     /**
      * Generates and returns the auth information if available
-     * @return
+     * @return the formatted authentication request property
      */
     protected String getAuth() {
         if(this.token != null) {
@@ -77,7 +77,7 @@ abstract class Request {
 
     /**
      * Sets the content type to be used in the request
-     * @param contentType
+     * @param contentType the content type of the request
      */
     public void setContentType(String contentType) {
         this.contentType = contentType;
@@ -85,7 +85,6 @@ abstract class Request {
 
     /**
      * Creates a new connection object
-     * @return
      * @throws IOException
      */
     protected void openConnection() throws IOException {
@@ -108,7 +107,7 @@ abstract class Request {
 
     /**
      * Reads the response from the connection as a string
-     * @return
+     * @return the request response
      * @throws IOException
      */
     protected String readResponse() throws IOException {
@@ -140,7 +139,7 @@ abstract class Request {
     /**
      * Submits the request.
      * The connection is opened before delegating additional processing to the request Method.
-     * @return
+     * @return the request response
      * @throws IOException
      */
     public final String submit() throws IOException {
@@ -152,7 +151,7 @@ abstract class Request {
 
     /**
      * Returns the response code for this request
-     * @return
+     * @return the request response code
      */
     public int getResponseCode() {
         return responseCode;
@@ -160,7 +159,7 @@ abstract class Request {
 
     /**
      * Perform methods specific actions
-     * @return
+     * @return the request response if any
      * @throws IOException
      */
     protected abstract String onSubmit(HttpURLConnection conn) throws IOException;
