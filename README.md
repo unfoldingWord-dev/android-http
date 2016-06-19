@@ -26,3 +26,6 @@ request.setAuthentication(username, password);
 String response = request.submit();
 int responseCode = request.getResponseCode();
 ```
+
+##Extending
+Requests are built around an abstract `Request` class. So you can easily create your own requests if the ones provided are incomplete or insufficient.
