@@ -3,7 +3,6 @@ Performing basic http requests in Android requires at least a handlful of code.
 This is annoying when almost every component initiates some network activity.
 
 ##Installation
-##Installation
 To use this library your Android project must be configured to use the JCenter or Maven Central repositories.
 
 Add the following to your package dependencies and sync gradle.
