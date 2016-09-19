@@ -26,6 +26,7 @@ public abstract class Request {
     private String password;
     private String contentType = null;
     private int responseCode = -1;
+    private String responseMessage = null;
     private int ttl = 5000;
     private OnProgressListener progressListener = null;
 
@@ -131,6 +132,7 @@ public abstract class Request {
             throw e;
         } finally {
             responseCode = conn.getResponseCode();
+            responseMessage = conn.getResponseMessage();
         }
 
         return conn;
@@ -257,6 +259,14 @@ public abstract class Request {
      */
     public int getResponseCode() {
         return responseCode;
+    }
+
+    /**
+     * Returns the error message for this request
+     * @return
+     */
+    public String getResponseMessage() {
+        return responseMessage;
     }
 
     /**

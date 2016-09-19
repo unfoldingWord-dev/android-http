@@ -66,6 +66,7 @@ public class FailedRequestUnitTests {
 
         assertEquals(request.getResponseCode(), 400);
         assertEquals(response, null);
+        assertNotNull(request.getResponseMessage());
 
         verify(getRequestedFor(urlMatching("/read/get")));
     }
@@ -89,6 +90,7 @@ public class FailedRequestUnitTests {
 
         assertEquals(request.getResponseCode(), 400);
         assertNotEquals(readFileAsString(dest), body);
+        assertNotNull(request.getResponseMessage());
 
         verify(getRequestedFor(urlMatching("/download/get")));
     }
@@ -113,6 +115,7 @@ public class FailedRequestUnitTests {
 
         assertEquals(request.getResponseCode(), 400);
         assertEquals(response, null);
+        assertNotNull(request.getResponseMessage());
 
         verify(postRequestedFor(urlMatching("/read/post")).withRequestBody(equalTo(data)));
     }
@@ -137,6 +140,7 @@ public class FailedRequestUnitTests {
 
         assertEquals(request.getResponseCode(), 400);
         assertNotEquals(readFileAsString(dest), body);
+        assertNotNull(request.getResponseMessage());
 
         verify(postRequestedFor(urlMatching("/download/post")).withRequestBody(equalTo(data)));
     }
@@ -160,6 +164,7 @@ public class FailedRequestUnitTests {
 
         assertEquals(request.getResponseCode(), 400);
         assertEquals(response, null);
+        assertNotNull(request.getResponseMessage());
 
         verify(deleteRequestedFor(urlMatching("/read/delete")));
     }
@@ -183,6 +188,7 @@ public class FailedRequestUnitTests {
 
         assertEquals(request.getResponseCode(), 400);
         assertNotEquals(readFileAsString(dest), body);
+        assertNotNull(request.getResponseMessage());
 
         verify(deleteRequestedFor(urlMatching("/download/delete")));
     }
@@ -207,6 +213,7 @@ public class FailedRequestUnitTests {
 
         assertEquals(request.getResponseCode(), 400);
         assertEquals(response, null);
+        assertNotNull(request.getResponseMessage());
 
         verify(putRequestedFor(urlMatching("/read/put")));
     }
@@ -231,6 +238,7 @@ public class FailedRequestUnitTests {
 
         assertEquals(request.getResponseCode(), 400);
         assertNotEquals(readFileAsString(dest), body);
+        assertNotNull(request.getResponseMessage());
 
         verify(putRequestedFor(urlMatching("/download/put")));
     }

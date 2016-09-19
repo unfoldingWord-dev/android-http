@@ -61,6 +61,7 @@ public class RequestUnitTests {
 
         assertEquals(request.getResponseCode(), 200);
         assertEquals(response, "my response");
+        assertNotNull(request.getResponseMessage());
 
         verify(getRequestedFor(urlMatching("/read/get")));
     }
@@ -81,6 +82,7 @@ public class RequestUnitTests {
         assertTrue(dest.exists());
         assertEquals(request.getResponseCode(), 200);
         assertEquals(readFileAsString(dest).trim(), body);
+        assertNotNull(request.getResponseMessage());
 
         verify(getRequestedFor(urlMatching("/download/get")));
     }
@@ -100,6 +102,7 @@ public class RequestUnitTests {
 
         assertEquals(request.getResponseCode(), 200);
         assertEquals(response, body);
+        assertNotNull(request.getResponseMessage());
 
         verify(postRequestedFor(urlMatching("/read/post")).withRequestBody(equalTo(data)));
     }
@@ -121,6 +124,7 @@ public class RequestUnitTests {
         assertTrue(dest.exists());
         assertEquals(request.getResponseCode(), 200);
         assertEquals(readFileAsString(dest).trim(), body);
+        assertNotNull(request.getResponseMessage());
 
         verify(postRequestedFor(urlMatching("/download/post")).withRequestBody(equalTo(data)));
     }
@@ -139,6 +143,7 @@ public class RequestUnitTests {
 
         assertEquals(request.getResponseCode(), 200);
         assertEquals(response, body);
+        assertNotNull(request.getResponseMessage());
 
         verify(deleteRequestedFor(urlMatching("/read/delete")));
     }
@@ -159,6 +164,7 @@ public class RequestUnitTests {
         assertTrue(dest.exists());
         assertEquals(request.getResponseCode(), 200);
         assertEquals(readFileAsString(dest).trim(), body);
+        assertNotNull(request.getResponseMessage());
 
         verify(deleteRequestedFor(urlMatching("/download/delete")));
     }
@@ -178,6 +184,7 @@ public class RequestUnitTests {
 
         assertEquals(request.getResponseCode(), 200);
         assertEquals(response, body);
+        assertNotNull(request.getResponseMessage());
 
         verify(putRequestedFor(urlMatching("/read/put")));
     }
@@ -199,31 +206,7 @@ public class RequestUnitTests {
         assertTrue(dest.exists());
         assertEquals(request.getResponseCode(), 200);
         assertEquals(readFileAsString(dest).trim(), body);
-
-        verify(putRequestedFor(urlMatching("/download/put")));
-    }
-
-    @Test
-    public void failedDownloadPUT() throws Exception {
-        String body = "my put response";
-        stubFor(put(urlEqualTo("/download/put"))
-                .willReturn(aResponse()
-                        .withStatus(400)
-                        .withHeader("Content-Type", "text/plain")
-                        .withBody(body)));
-
-        String data = "my data";
-        PutRequest request = new PutRequest(new URL("http://localhost:" + wireMockRule.port() + "/download/put"), data);
-        File dest = File.createTempFile("download.delete", "txt");
-        try {
-            request.download(dest);
-        } catch(Exception e) {
-            assertNotNull(e);
-        }
-
-        assertTrue(dest.exists());
-        assertEquals(request.getResponseCode(), 400);
-        assertNotEquals(readFileAsString(dest).trim(), body);
+        assertNotNull(request.getResponseMessage());
 
         verify(putRequestedFor(urlMatching("/download/put")));
     }

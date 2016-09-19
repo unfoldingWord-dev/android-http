@@ -7,25 +7,47 @@ To use this library your Android project must be configured to use the JCenter o
 
 Add the following to your package dependencies and sync gradle.
 ```
-compile 'org.unfoldingword.tools:http:1.0.0'
+compile 'org.unfoldingword.tools:http:2.0.0'
 ```
 
 ##Usage
 
 ```
-GetRequest request = GetRequest.newInstance(someurl);
-String response = request.submit();
+GetRequest request = new GetRequest(someurl);
+String response = request.read();
 int responseCode = request.getResponseCode();
 ```
 
-Or if you need authentication
+we now support downloading to a file
+
 ```
-GetRequest request = GetRequest.newInstance(someurl);
-request.setAuthentication(username, password);
-// or using a token: request.setAuthentication(sometoken);
-String response = request.submit();
+GetRequest request = new GetRequest(someurl);
+request.download(somefile);
 int responseCode = request.getResponseCode();
 ```
+
+###Exceptions
+If an exception occurs durring your request you can still retrieve the status code and message.
+```
+GetRequest request = new GetRequest(someurl);
+try {
+  request.download(somefile);
+} catch (IOException e) {
+  int responseCode = request.getResponseCode();
+  String errorMessage = request.getErrorMessage();
+}
+```
+
+###Authentication
+```
+GetRequest request = new GetRequest(someurl);
+request.setAuthentication(username, password);
+// or using a token: request.setAuthentication(sometoken);
+String response = request.read();
+int responseCode = request.getResponseCode();
+```
+
+
 
 ##Extending
 Requests are built around an abstract `Request` class. So you can easily create your own requests if the ones provided are incomplete or insufficient.
