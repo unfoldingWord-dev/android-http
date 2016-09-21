@@ -193,6 +193,7 @@ public abstract class Request {
             if(in != null) in.close();
             out.close();
             connection.disconnect();
+            if(destination.exists()) destination.delete();
         }
     }
 

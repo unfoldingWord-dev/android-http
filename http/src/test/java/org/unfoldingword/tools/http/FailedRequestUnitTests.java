@@ -4,6 +4,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,6 +24,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 public class FailedRequestUnitTests {
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().dynamicPort().dynamicHttpsPort());
+    @Rule
+    public TemporaryFolder tempDir = new TemporaryFolder();
 
     private static String readStreamToString(InputStream is) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -32,20 +35,6 @@ public class FailedRequestUnitTests {
             sb.append(line).append("\n");
         }
         return sb.toString();
-    }
-
-    private String readFileAsString(File f) throws IOException {
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(f);
-            String contents = readStreamToString(fis);
-            fis.close();
-            return contents;
-        } finally {
-            if(fis != null) {
-                fis.close();
-            }
-        }
     }
 
     @Test
@@ -81,7 +70,7 @@ public class FailedRequestUnitTests {
                         .withBody(body)));
 
         GetRequest request = new GetRequest(new URL("http://localhost:" + wireMockRule.port() + "/download/get"));
-        File dest = File.createTempFile("failed.download.get", "txt");
+        File dest = new File(tempDir.getRoot(), "failed.download.get.txt");
         try {
             request.download(dest);
         } catch(Exception e) {
@@ -89,8 +78,8 @@ public class FailedRequestUnitTests {
         }
 
         assertEquals(request.getResponseCode(), 400);
-        assertNotEquals(readFileAsString(dest), body);
         assertNotNull(request.getResponseMessage());
+        assertTrue(!dest.exists());
 
         verify(getRequestedFor(urlMatching("/download/get")));
     }
@@ -131,7 +120,7 @@ public class FailedRequestUnitTests {
 
         String data = "some data";
         PostRequest request = new PostRequest(new URL("http://localhost:" + wireMockRule.port() + "/download/post"), data);
-        File dest = File.createTempFile("failed.download.post", "txt");
+        File dest = new File(tempDir.getRoot(), "failed.download.post.txt");
         try {
             request.download(dest);
         } catch(Exception e) {
@@ -139,8 +128,8 @@ public class FailedRequestUnitTests {
         }
 
         assertEquals(request.getResponseCode(), 400);
-        assertNotEquals(readFileAsString(dest), body);
         assertNotNull(request.getResponseMessage());
+        assertTrue(!dest.exists());
 
         verify(postRequestedFor(urlMatching("/download/post")).withRequestBody(equalTo(data)));
     }
@@ -179,7 +168,7 @@ public class FailedRequestUnitTests {
                         .withBody(body)));
 
         DeleteRequest request = new DeleteRequest(new URL("http://localhost:" + wireMockRule.port() + "/download/delete"));
-        File dest = File.createTempFile("failed.download.delete", "txt");
+        File dest = new File(tempDir.getRoot(), "failed.download.delete.txt");
         try {
             request.download(dest);
         } catch(Exception e) {
@@ -187,8 +176,8 @@ public class FailedRequestUnitTests {
         }
 
         assertEquals(request.getResponseCode(), 400);
-        assertNotEquals(readFileAsString(dest), body);
         assertNotNull(request.getResponseMessage());
+        assertTrue(!dest.exists());
 
         verify(deleteRequestedFor(urlMatching("/download/delete")));
     }
@@ -229,7 +218,7 @@ public class FailedRequestUnitTests {
 
         String data = "my data";
         PutRequest request = new PutRequest(new URL("http://localhost:" + wireMockRule.port() + "/download/put"), data);
-        File dest = File.createTempFile("failed.download.delete", "txt");
+        File dest = new File(tempDir.getRoot(), "failed.download.delete.txt");
         try {
             request.download(dest);
         } catch(Exception e) {
@@ -237,8 +226,8 @@ public class FailedRequestUnitTests {
         }
 
         assertEquals(request.getResponseCode(), 400);
-        assertNotEquals(readFileAsString(dest), body);
         assertNotNull(request.getResponseMessage());
+        assertTrue(!dest.exists());
 
         verify(putRequestedFor(urlMatching("/download/put")));
     }
