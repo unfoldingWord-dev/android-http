@@ -4,6 +4,7 @@ import com.github.tomakehurst.wiremock.junit.WireMockRule;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,6 +24,8 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 public class RequestUnitTests {
     @Rule
     public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().dynamicPort().dynamicHttpsPort());
+    @Rule
+    public TemporaryFolder tempDir = new TemporaryFolder();
 
     private static String readStreamToString(InputStream is) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -76,7 +79,7 @@ public class RequestUnitTests {
                         .withBody(body)));
 
         GetRequest request = new GetRequest(new URL("http://localhost:" + wireMockRule.port() + "/download/get"));
-        File dest = File.createTempFile("download.get", "txt");
+        File dest = new File(tempDir.getRoot(), "download.get.txt");
         request.download(dest);
 
         assertTrue(dest.exists());
@@ -118,7 +121,7 @@ public class RequestUnitTests {
 
         String data = "some data";
         PostRequest request = new PostRequest(new URL("http://localhost:" + wireMockRule.port() + "/download/post"), data);
-        File dest = File.createTempFile("download.post", "txt");
+        File dest = new File(tempDir.getRoot(), "download.post.txt");
         request.download(dest);
 
         assertTrue(dest.exists());
@@ -158,7 +161,7 @@ public class RequestUnitTests {
                         .withBody(body)));
 
         DeleteRequest request = new DeleteRequest(new URL("http://localhost:" + wireMockRule.port() + "/download/delete"));
-        File dest = File.createTempFile("download.delete", "txt");
+        File dest = new File(tempDir.getRoot(), "download.delete.txt");
         request.download(dest);
 
         assertTrue(dest.exists());
@@ -200,7 +203,7 @@ public class RequestUnitTests {
 
         String data = "my data";
         PutRequest request = new PutRequest(new URL("http://localhost:" + wireMockRule.port() + "/download/put"), data);
-        File dest = File.createTempFile("download.delete", "txt");
+        File dest = new File(tempDir.getRoot(), "download.delete.txt");
         request.download(dest);
 
         assertTrue(dest.exists());

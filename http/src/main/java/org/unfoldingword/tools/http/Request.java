@@ -188,13 +188,16 @@ public abstract class Request {
             }
             publishProgress(responseSize, bytesRead);
         } catch (Exception e) {
-            throw e;
-        } finally {
             if(in != null) in.close();
             out.close();
             connection.disconnect();
             if(destination.exists()) destination.delete();
+            throw e;
         }
+
+        if(in != null) in.close();
+        out.close();
+        connection.disconnect();
     }
 
     /**
