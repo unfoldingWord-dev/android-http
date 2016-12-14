@@ -5,7 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Impliments a put request
+ * Implements a put request
  */
 public class PutRequest extends Request {
     private final String data;

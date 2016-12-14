@@ -5,7 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Impliments a delete request
+ * Implements a delete request
  */
 public class DeleteRequest extends Request {
 

@@ -5,7 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Impliments a post request
+ * Implements a post request
  */
 public class PostRequest extends Request {
     private final String data;

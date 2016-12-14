@@ -5,7 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Impliments a get request
+ * Implements a get request
  */
 public class GetRequest extends Request {
 

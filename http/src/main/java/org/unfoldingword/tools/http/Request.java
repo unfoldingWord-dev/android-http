@@ -52,7 +52,7 @@ public abstract class Request {
 
     /**
      * Sets the connection write and read timeout
-     * @param ttl
+     * @param ttl the time allowed before the connection times out
      */
     public void setTimeout(int ttl) {
         this.ttl = ttl;
@@ -60,7 +60,7 @@ public abstract class Request {
 
     /**
      * Sets the listener to receive progress updates
-     * @param listener
+     * @param listener a listener that will receive progress events
      */
     public void setProgressListener(OnProgressListener listener) {
         this.progressListener = listener;
@@ -105,12 +105,12 @@ public abstract class Request {
 
     /**
      * Creates a new connection object
-     * @return
+     * @return a connection object
      * @throws IOException
      */
     protected HttpURLConnection openConnection() throws IOException {
         HttpURLConnection conn;
-        if(url.getProtocol() == "https") {
+        if(url.getProtocol().equals("https")) {
             conn = (HttpsURLConnection)url.openConnection();
         } else {
             conn = (HttpURLConnection)url.openConnection();
@@ -141,7 +141,7 @@ public abstract class Request {
     /**
      * Submits data to the connection.
      * Such as in a POST or PUT request.
-     * @param connection
+     * @param connection the connection that will receive the data
      * @param data the data to be sent
      * @throws IOException
      */
@@ -238,21 +238,20 @@ public abstract class Request {
             connection.disconnect();
         }
 
-        String response = out.toString("UTF-8");
-        return response;
+        return out.toString("UTF-8");
     }
 
     /**
      * Sends notifications to the progress listener
-     * @param maxBytes
-     * @param readRead
+     * @param totalBytes the total size of the payload
+     * @param bytesRead the number of bytes read
      */
-    private void publishProgress(long maxBytes, long readRead) {
+    private void publishProgress(long totalBytes, long bytesRead) {
         if(progressListener == null) return;
-        if(maxBytes >= 0) {
+        if(totalBytes >= 0) {
             progressListener.onIndeterminate();
         } else {
-            progressListener.onProgress(maxBytes, readRead);
+            progressListener.onProgress(totalBytes, bytesRead);
         }
 
     }
@@ -267,7 +266,7 @@ public abstract class Request {
 
     /**
      * Returns the error message for this request
-     * @return
+     * @return an error message
      */
     public String getResponseMessage() {
         return responseMessage;
