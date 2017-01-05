@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/unfoldingWord-dev/android-http'
     gitUrl = 'https://github.com/unfoldingWord-dev/android-http.git'
 
-    libraryVersion = '2.4.1'
+    libraryVersion = '2.4.2'
 
     developerId = 'neutrinog'
     developerName = 'Joel Lonbeck'
@@ -32,7 +32,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 8
-        versionName "2.4.1"
+        versionName "2.4.2"
     }
     buildTypes {
         release {

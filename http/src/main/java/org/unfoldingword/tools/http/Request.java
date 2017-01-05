@@ -248,7 +248,7 @@ public abstract class Request {
      */
     private void publishProgress(long totalBytes, long bytesRead) {
         if(progressListener == null) return;
-        if(totalBytes >= 0) {
+        if(totalBytes <= 0 || bytesRead <= 0) {
             progressListener.onIndeterminate();
         } else {
             progressListener.onProgress(totalBytes, bytesRead);
