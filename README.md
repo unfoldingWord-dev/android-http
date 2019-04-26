@@ -1,8 +1,8 @@
-#android-http
+# android-http
 Performing basic http requests in Android requires at least a handlful of code.
 This is annoying when almost every component initiates some network activity.
 
-##Installation
+## Installation
 To use this library your Android project must be configured to use the JCenter or Maven Central repositories.
 
 Add the following to your package dependencies and sync gradle.
@@ -10,7 +10,7 @@ Add the following to your package dependencies and sync gradle.
 compile 'org.unfoldingword.tools:http:2.0.0'
 ```
 
-##Usage
+## Usage
 
 ```
 GetRequest request = new GetRequest(someurl);
@@ -26,7 +26,7 @@ request.download(somefile);
 int responseCode = request.getResponseCode();
 ```
 
-###Exceptions
+### Exceptions
 If an exception occurs durring your request you can still retrieve the status code and message.
 ```
 GetRequest request = new GetRequest(someurl);
@@ -38,7 +38,7 @@ try {
 }
 ```
 
-###Authentication
+### Authentication
 ```
 GetRequest request = new GetRequest(someurl);
 request.setAuthentication(username, password);
@@ -49,5 +49,5 @@ int responseCode = request.getResponseCode();
 
 
 
-##Extending
+## Extending
 Requests are built around an abstract `Request` class. So you can easily create your own requests if the ones provided are incomplete or insufficient.
