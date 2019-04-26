@@ -40,7 +40,7 @@ public abstract class Request {
 
     /**
      * Sets the authentication token for the request.
-     * The auth label will be "token"
+     * The auth label will be "Bearer". Use {@link #setAuth(String, String)} to customize the label.
      * @param token
      */
     public void setAuth(String token) {
